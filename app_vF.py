@@ -632,8 +632,13 @@ def main():
     # Load LFB data using caching
     @st.cache_data
     def load_data():
-        df = pd.read_csv("input/reduced_records.csv")
-        return df
+        # Load individual datasets
+        data_2009_2013 = pd.read_csv("input/reduced_records_2009_2013.csv")
+        data_2014_2018 = pd.read_csv("input/reduced_records_2014_2018.csv")
+        data_2019_2023 = pd.read_csv("input/reduced_records_2019_2023.csv")
+        # Merge datasets
+        merged_data = pd.concat([data_2009_2013, data_2014_2018, data_2019_2023], ignore_index=True)
+        return merged_data
     all_records = load_data()
 
     # Create sidebar and add filter options
